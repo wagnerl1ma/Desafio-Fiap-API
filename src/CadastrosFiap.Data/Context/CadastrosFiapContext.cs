@@ -14,8 +14,8 @@ namespace CadastrosFiap.Data.Context
     {
         public CadastrosFiapContext(DbContextOptions<CadastrosFiapContext> options) : base(options)
         {
-            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            //ChangeTracker.AutoDetectChangesEnabled = false;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
         public DbSet<Aluno> Alunos { get; set; }

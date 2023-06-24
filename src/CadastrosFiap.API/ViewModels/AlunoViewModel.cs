@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 
 namespace CadastrosFiap.API.ViewModels
@@ -7,6 +8,7 @@ namespace CadastrosFiap.API.ViewModels
     public class AlunoViewModel
     {
         [Key]
+        //[JsonIgnore]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "É necessário colocar o {0}")]
@@ -19,7 +21,8 @@ namespace CadastrosFiap.API.ViewModels
 
         [Required(ErrorMessage = "É necessário colocar a {0}")]
         [StringLength(8, ErrorMessage = "O tamanho da {0} deve ter {1} caracteres com pelo menos 1 caractere especial!")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8}$", ErrorMessage = "A senha deve atender aos requisitos")] //Todo: testar 
+        [RegularExpression(@"^(?=.*[^a-zA-Z0-9]).{8}$", ErrorMessage = "A senha deve atender aos requisitos: 8 caracteres com pelo menos 1 caractere especial")] //Todo: testar 
+        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8}$", ErrorMessage = "A senha deve atender aos requisitos")] //Todo: testar 
         public string Senha { get; set; }
 
         [NotMapped]
