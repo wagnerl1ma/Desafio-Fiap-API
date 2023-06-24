@@ -1,24 +1,32 @@
+using CadastrosFiap.API.Configurations;
+using CadastrosFiap.Data.Context;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// ConfigureServices
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<CadastrosFiapContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddApiConfig();
+
+builder.Services.AddSwaggerConfig();
+
+builder.Services.ResolveDependencies();
 
 var app = builder.Build();
+var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Configure
 
-app.UseHttpsRedirection();
+app.UseApiConfig(app.Environment);
 
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseSwaggerConfig(apiVersionDescriptionProvider);
 
 app.Run();
+

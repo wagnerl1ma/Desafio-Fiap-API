@@ -4,9 +4,11 @@ namespace CadastrosFiap.API.ViewModels
 {
     public class TurmaViewModel
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Curso")]
         public int IdCurso { get; set; }
 
         [Required(ErrorMessage = "É necessário colocar o {0}")]
