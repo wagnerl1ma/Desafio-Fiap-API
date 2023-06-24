@@ -22,7 +22,7 @@ namespace CadastrosFiap.Data.Mappings
 
             builder.Property(a => a.Usuario).HasColumnName("Usuario").HasColumnType("varchar(45)").IsRequired();
 
-            builder.Property(a => a.Nome).HasColumnName("Senha").HasColumnType("char(60)").IsRequired();
+            builder.Property(a => a.Senha).HasColumnName("Senha").HasColumnType("char(60)").IsRequired();
 
             builder.HasIndex(a => a.Id).IsUnique();
         }

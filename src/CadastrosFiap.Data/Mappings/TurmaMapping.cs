@@ -22,7 +22,7 @@ namespace CadastrosFiap.Data.Mappings
 
             builder.Property(a => a.NomeTurma).HasColumnName("Nome_Turma").HasColumnType("varchar(45)").IsRequired();
 
-            builder.Property(a => a.Ano).HasColumnName("Ano").HasColumnType("int(4)").IsRequired();
+            builder.Property(a => a.Ano).HasColumnName("Ano").IsRequired();
 
             builder.HasIndex(a => a.Id).IsUnique();
         }

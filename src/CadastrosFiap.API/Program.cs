@@ -23,7 +23,6 @@ var app = builder.Build();
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 // Configure
-
 app.UseApiConfig(app.Environment);
 
 app.UseSwaggerConfig(apiVersionDescriptionProvider);

@@ -1,6 +1,17 @@
-﻿namespace CadastrosFiap.API.Configurations
+﻿using AutoMapper;
+using CadastrosFiap.API.ViewModels;
+using CadastrosFiap.Business.Models;
+
+namespace CadastrosFiap.API.Configurations
 {
-    public class AutomapperConfig
+    public class AutomapperConfig : Profile
     {
+        public AutomapperConfig()
+        {
+            CreateMap<Aluno, AlunoViewModel>().ReverseMap();
+            CreateMap<Turma, TurmaViewModel>().ReverseMap();
+            CreateMap<AlunoTurma, AlunoTurmaViewModel>();
+
+        }
     }
 }
