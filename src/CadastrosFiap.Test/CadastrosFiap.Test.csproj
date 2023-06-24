@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CadastrosFiap.Business\CadastrosFiap.Business.csproj" />
+  </ItemGroup>
+
 </Project>
