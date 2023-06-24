@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace CadastrosFiap.Business.Models
 {
@@ -16,6 +10,7 @@ namespace CadastrosFiap.Business.Models
         public string Usuario { get; set; }
         public string Senha { get; set; } //todo: salvar como char no banco
 
+        [NotMapped]
         [JsonIgnore]
         public bool? SenhaIsValid { get; set; } = null;
 

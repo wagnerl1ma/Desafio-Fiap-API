@@ -12,7 +12,7 @@ namespace CadastrosFiap.Business.Models.Validations
             RuleFor(x => x.IdCurso)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
-            RuleFor(x => x.Nome)
+            RuleFor(x => x.NomeTurma)
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")
                 .Length(2, 45).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 

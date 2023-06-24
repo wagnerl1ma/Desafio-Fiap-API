@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CadastrosFiap.Business\CadastrosFiap.Business.csproj" />
+    <ProjectReference Include="..\CadastrosFiap.Data\CadastrosFiap.Data.csproj" />
   </ItemGroup>
 
 </Project>

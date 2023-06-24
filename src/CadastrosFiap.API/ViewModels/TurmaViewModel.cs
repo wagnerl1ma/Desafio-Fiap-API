@@ -12,7 +12,7 @@ namespace CadastrosFiap.API.ViewModels
         [Required(ErrorMessage = "É necessário colocar o {0}")]
         [Display(Name = "Nome da Turma", Prompt = "Ex: Turma 2023")] //Prompt = Espaço Reservado - placeholder
         [StringLength(45, MinimumLength = 5, ErrorMessage = "O tamanho do {0} deve ser entre {2} e {1} caracteres!")]
-        public string Nome { get; set; }
+        public string NomeTurma { get; set; }
 
         [Required(ErrorMessage = "É necessário colocar o {0}")]
         [Display(Name = "Ano da Turma", Prompt = "Ex: 2023")] 
