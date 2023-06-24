@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33801.468
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadastrosFiap.API", "src\CadastrosFiap.API\CadastrosFiap.API.csproj", "{B7753828-3A8C-4005-9845-26371FBF1C82}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadastrosFiap.Business", "src\CadastrosFiap.Business\CadastrosFiap.Business.csproj", "{119CC249-11B8-4EFD-9DA0-E022110B56A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadastrosFiap.Data", "src\CadastrosFiap.Data\CadastrosFiap.Data.csproj", "{9A1C1D8B-DF42-40AC-92C1-4FF40F110BE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastrosFiap.Test", "src\CadastrosFiap.Test\CadastrosFiap.Test.csproj", "{61A41539-6FAB-419D-9D27-D35F798BB50B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7753828-3A8C-4005-9845-26371FBF1C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7753828-3A8C-4005-9845-26371FBF1C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7753828-3A8C-4005-9845-26371FBF1C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7753828-3A8C-4005-9845-26371FBF1C82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119CC249-11B8-4EFD-9DA0-E022110B56A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119CC249-11B8-4EFD-9DA0-E022110B56A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119CC249-11B8-4EFD-9DA0-E022110B56A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119CC249-11B8-4EFD-9DA0-E022110B56A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A1C1D8B-DF42-40AC-92C1-4FF40F110BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A1C1D8B-DF42-40AC-92C1-4FF40F110BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A1C1D8B-DF42-40AC-92C1-4FF40F110BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A1C1D8B-DF42-40AC-92C1-4FF40F110BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61A41539-6FAB-419D-9D27-D35F798BB50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A41539-6FAB-419D-9D27-D35F798BB50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61A41539-6FAB-419D-9D27-D35F798BB50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61A41539-6FAB-419D-9D27-D35F798BB50B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1354363C-0011-411F-A667-13CA70D86DE9}
+	EndGlobalSection
+EndGlobal
