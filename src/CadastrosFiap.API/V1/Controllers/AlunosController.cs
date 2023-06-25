@@ -3,12 +3,12 @@ using CadastrosFiap.API.Controllers;
 using CadastrosFiap.API.ViewModels;
 using CadastrosFiap.Business.Interfaces;
 using CadastrosFiap.Business.Models;
-using CadastrosFiap.Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastrosFiap.API.V1.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/alunos")]
     public class AlunosController : MainController
@@ -23,7 +23,6 @@ namespace CadastrosFiap.API.V1.Controllers
             _mapper = mapper;
             _alunoService = alunoService;
         }
-
 
         /// <summary>
         /// Obter todos os Alunos

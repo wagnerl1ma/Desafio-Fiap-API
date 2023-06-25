@@ -3,11 +3,12 @@ using CadastrosFiap.API.Controllers;
 using CadastrosFiap.API.ViewModels;
 using CadastrosFiap.Business.Interfaces;
 using CadastrosFiap.Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastrosFiap.API.V1.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/alunosturmas")]
     public class AlunosTurmasController : MainController

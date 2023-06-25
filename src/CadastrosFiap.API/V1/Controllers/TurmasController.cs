@@ -5,11 +5,12 @@ using CadastrosFiap.Business.Interfaces;
 using CadastrosFiap.Business.Models;
 using CadastrosFiap.Business.Services;
 using CadastrosFiap.Data.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastrosFiap.API.V1.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/turmas")]
     public class TurmasController : MainController

@@ -51,8 +51,8 @@ namespace CadastrosFiap.API.Configurations
 
             app.UseRouting();
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseStaticFiles();
 
