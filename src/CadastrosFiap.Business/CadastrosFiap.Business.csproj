@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.5.2" />
+    <PackageReference Include="SecureIdentity" Version="1.0.4" />
   </ItemGroup>
 
 </Project>

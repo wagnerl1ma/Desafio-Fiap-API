@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using SecureIdentity.Password;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
@@ -24,7 +25,7 @@ namespace CadastrosFiap.Business.Models
         {
             string senha = Senha;
 
-            if (senha.Length != 8)
+            if (senha.Length < 8 || senha.Length > 60)
             {
                 SenhaIsValid = null;
                 return null;

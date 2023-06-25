@@ -67,7 +67,12 @@ namespace CadastrosFiap.API.V1.Controllers
 
             alunoAtualizacao.Nome = alunoViewModel.Nome;
             alunoAtualizacao.Usuario = alunoViewModel.Usuario;
-            alunoAtualizacao.Senha = alunoViewModel.Senha;
+
+            if (alunoAtualizacao.Senha != alunoViewModel.Senha)
+            {
+                alunoAtualizacao.Senha = alunoViewModel.Senha;
+            }
+                
 
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);

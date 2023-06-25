@@ -28,7 +28,23 @@ namespace CadastrosFiap.Data.Repository
 
         }
 
-        public async Task<AlunoTurma> ObterIdAlunoTurma(int id)
+        public async Task<bool> AlunoMesmoTurma(AlunoTurma alunoTurma) //  Aluno nao pode estar relacionado na mesma Turma duas vezes.
+        {
+            var alunoDb = await ObterAlunoTurma(alunoTurma.AlunoId);
+
+            if(alunoDb == null)
+            {
+                return false;
+            }
+            else if(alunoDb.TurmaId == alunoTurma.TurmaId) 
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<AlunoTurma> ObterAlunoTurma(int id)
         {
             return await Db.AlunosTurmas.Where(x => x.AlunoId == id).FirstOrDefaultAsync();
         }

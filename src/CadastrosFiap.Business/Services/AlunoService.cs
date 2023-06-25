@@ -1,6 +1,7 @@
 ﻿using CadastrosFiap.Business.Interfaces;
 using CadastrosFiap.Business.Models;
 using CadastrosFiap.Business.Models.Validations;
+using SecureIdentity.Password;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace CadastrosFiap.Business.Services
             if (!ExecutarValidacao(new AlunoValidation(), aluno))
                 return false;
 
+            //senha hash
+            aluno.Senha = PasswordHasher.Hash(aluno.Senha, 5, 10); //gerando senha hash
+
             await _alunoRepository.Adicionar(aluno);
             return true;
         }
@@ -32,6 +36,9 @@ namespace CadastrosFiap.Business.Services
         {
             if (!ExecutarValidacao(new AlunoValidation(), aluno))
                 return false;
+
+            //senha hash
+            aluno.Senha = PasswordHasher.Hash(aluno.Senha, 5, 10); //gerando senha hash
 
             await _alunoRepository.Atualizar(aluno);
             return true;

@@ -63,8 +63,6 @@ namespace CadastrosFiap.Data.Repository
             }
         }
 
-        
-
         public async Task<int> SaveChanges()
         {
             return await Db.SaveChangesAsync();

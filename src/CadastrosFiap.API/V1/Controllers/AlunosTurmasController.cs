@@ -3,8 +3,6 @@ using CadastrosFiap.API.Controllers;
 using CadastrosFiap.API.ViewModels;
 using CadastrosFiap.Business.Interfaces;
 using CadastrosFiap.Business.Models;
-using CadastrosFiap.Business.Services;
-using CadastrosFiap.Data.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastrosFiap.API.V1.Controllers
@@ -15,18 +13,18 @@ namespace CadastrosFiap.API.V1.Controllers
     public class AlunosTurmasController : MainController
     {
         private readonly IAlunoTurmaRepository _alunoTurmaRepository;
-        private readonly IAlunoRepository _alunoTurmasRepository;
+        private readonly IAlunoRepository _alunoRepository;
         private readonly ITurmaRepository _turmaRepository;
         private readonly IAlunoTurmaService _alunoTurmaService;
         private readonly IMapper _mapper;
 
         public AlunosTurmasController(INotificador notificador, IAlunoTurmaRepository alunoTurmaRepository, IMapper mapper, 
-            IAlunoTurmaService alunoTurmaService, IAlunoRepository alunoTurmasRepository, ITurmaRepository turmaRepository) : base(notificador)
+            IAlunoTurmaService alunoTurmaService, IAlunoRepository alunoRepository, ITurmaRepository turmaRepository) : base(notificador)
         {
             _alunoTurmaRepository = alunoTurmaRepository;
             _mapper = mapper;
             _alunoTurmaService = alunoTurmaService;
-            _alunoTurmasRepository = alunoTurmasRepository;
+            _alunoRepository = alunoRepository;
             _turmaRepository = turmaRepository;
         }
 
@@ -40,7 +38,7 @@ namespace CadastrosFiap.API.V1.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<AlunoTurmaViewModel>> ObterPorId(int id)
         {
-            var alunoTurma = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterIdAlunoTurma(id));
+            var alunoTurma = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterAlunoTurma(id));
 
             if (alunoTurma == null)
                 return NotFound(); //404
@@ -54,7 +52,7 @@ namespace CadastrosFiap.API.V1.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            var getAluno = await _alunoTurmasRepository.ObterPorId(alunoCreateTurmaViewModel.AlunoId);
+            var getAluno = await _alunoRepository.ObterPorId(alunoCreateTurmaViewModel.AlunoId);
             if (getAluno == null)
             {
                 NotificarErro("O id do Aluno informado não existe!");
@@ -73,6 +71,14 @@ namespace CadastrosFiap.API.V1.Controllers
             alunoTurmaMapper.TurmaId = alunoCreateTurmaViewModel.TurmaId;
 
             var alunoTurma = _mapper.Map<AlunoTurma>(alunoTurmaMapper);
+
+            var alunoMesmaTurma = await _alunoTurmaRepository.AlunoMesmoTurma(alunoTurma);
+            if (alunoMesmaTurma)
+            {
+                NotificarErro("O mesmo Aluno não pode estar relacionado na mesma Turma duas vezes!");
+                return CustomResponse(alunoCreateTurmaViewModel);
+            }
+
             await _alunoTurmaService.Adicionar(alunoTurma);
 
             return CustomResponse(alunoCreateTurmaViewModel);
@@ -101,7 +107,7 @@ namespace CadastrosFiap.API.V1.Controllers
                 return CustomResponse(alunoCreateUpdTurmaViewModel);
             }
 
-            var alunoTurmaAtualizacao = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterIdAlunoTurma(id)); //captura a informção do banco e faz a atualização
+            var alunoTurmaAtualizacao = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterAlunoTurma(id)); //captura a informção do banco e faz a atualização
 
             alunoTurmaAtualizacao.AlunoId = alunoCreateUpdTurmaViewModel.AlunoId;
             alunoTurmaAtualizacao.TurmaId = alunoCreateUpdTurmaViewModel.TurmaId;
@@ -113,7 +119,15 @@ namespace CadastrosFiap.API.V1.Controllers
             alunoTurmaMapper.AlunoId = alunoCreateUpdTurmaViewModel.AlunoId;
             alunoTurmaMapper.TurmaId = alunoCreateUpdTurmaViewModel.TurmaId;
 
-            var alunoTurma = _mapper.Map<AlunoTurma>(alunoTurmaMapper);
+            //var alunoTurma = _mapper.Map<AlunoTurma>(alunoTurmaMapper);
+
+            var alunoMesmaTurma = await _alunoTurmaRepository.AlunoMesmoTurma(_mapper.Map<AlunoTurma>(alunoTurmaAtualizacao));
+            if (alunoMesmaTurma)
+            {
+                NotificarErro("O mesmo Aluno não pode estar relacionado na mesma Turma duas vezes!");
+                return CustomResponse(alunoCreateUpdTurmaViewModel);
+            }
+
             _alunoTurmaService.AtualizarDapper(_mapper.Map<AlunoTurma>(alunoTurmaAtualizacao));
 
             return CustomResponse(alunoCreateUpdTurmaViewModel);
@@ -124,7 +138,7 @@ namespace CadastrosFiap.API.V1.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<AlunoTurmaViewModel>> Excluir(int id)
         {
-            var AlunoTurmaViewModel = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterIdAlunoTurma(id));
+            var AlunoTurmaViewModel = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterAlunoTurma(id));
 
             if (AlunoTurmaViewModel == null)
                 return NotFound();

@@ -1,4 +1,5 @@
 using CadastrosFiap.Business.Models;
+using SecureIdentity.Password;
 
 namespace CadastrosFiap.Test
 {
@@ -20,6 +21,20 @@ namespace CadastrosFiap.Test
             //Assert
             Assert.True(resultado);
 
+        }
+
+        [Fact]
+        public void Aluno_GerarSenhaHash_RetornarTrueCasoSenhaForValidada()
+        {
+            //Arrange
+            var aluno = new Aluno();
+            aluno.Senha = "1234567@";
+
+            //Act
+            var passwordHash = PasswordHasher.Hash(aluno.Senha, 5, 10);
+
+            //Assert
+            Assert.True(passwordHash?.Length >= 8 && passwordHash.Length < 61);
         }
     }
 }

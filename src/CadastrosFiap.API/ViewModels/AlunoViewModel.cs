@@ -20,9 +20,8 @@ namespace CadastrosFiap.API.ViewModels
         public string Usuario { get; set; }
 
         [Required(ErrorMessage = "É necessário colocar a {0}")]
-        [StringLength(8, ErrorMessage = "O tamanho da {0} deve ter {1} caracteres com pelo menos 1 caractere especial!")]
-        [RegularExpression(@"^(?=.*[^a-zA-Z0-9]).{8}$", ErrorMessage = "A senha deve atender aos requisitos: 8 caracteres com pelo menos 1 caractere especial")] //Todo: testar 
-        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8}$", ErrorMessage = "A senha deve atender aos requisitos")] //Todo: testar 
+        [StringLength(40, MinimumLength = 8, ErrorMessage = "O tamanho da {0} deve ser entre {2} e {1} caracteres com pelo menos 1 caractere especial!")]
+        [RegularExpression(@"^(?=.*[^a-zA-Z0-9]).{8,40}$", ErrorMessage = "A senha deve atender aos requisitos: 8 caracteres com pelo menos 1 caractere especial")] //Todo: testar 
         public string Senha { get; set; }
 
         [NotMapped]
