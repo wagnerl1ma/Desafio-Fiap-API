@@ -3,6 +3,7 @@ using CadastrosFiap.API.Controllers;
 using CadastrosFiap.API.ViewModels;
 using CadastrosFiap.Business.Interfaces;
 using CadastrosFiap.Business.Models;
+using CadastrosFiap.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastrosFiap.API.V1.Controllers
@@ -13,12 +14,14 @@ namespace CadastrosFiap.API.V1.Controllers
     public class AlunosController : MainController
     {
         private readonly IAlunoRepository _alunoRepository;
+        private readonly IAlunoService _alunoService;
         private readonly IMapper _mapper;
 
-        public AlunosController(INotificador notificador, IAlunoRepository alunoRepository, IMapper mapper) : base(notificador)
+        public AlunosController(INotificador notificador, IAlunoRepository alunoRepository, IMapper mapper, IAlunoService alunoService) : base(notificador)
         {
             _alunoRepository = alunoRepository;
             _mapper = mapper;
+            _alunoService = alunoService;
         }
 
         [HttpGet]
@@ -34,7 +37,7 @@ namespace CadastrosFiap.API.V1.Controllers
             var aluno = _mapper.Map<AlunoViewModel>(await _alunoRepository.ObterPorId(id));
 
             if (aluno == null)
-                return NotFound();
+                return NotFound(); //404
 
             return aluno;
         }
@@ -43,14 +46,12 @@ namespace CadastrosFiap.API.V1.Controllers
         public async Task<ActionResult<AlunoViewModel>> Adicionar(AlunoViewModel alunoViewModel)
         {
             if (!ModelState.IsValid)
-                //return BadRequest(); // teste
                 return CustomResponse(ModelState);
 
             var aluno = _mapper.Map<Aluno>(alunoViewModel);
-            await _alunoRepository.Adicionar(aluno);
+            await _alunoService.Adicionar(aluno);
 
             return CustomResponse(alunoViewModel);
-            //return Ok(alunoViewModel); // teste
         }
 
         [HttpPut("{id:int}")]
@@ -72,7 +73,7 @@ namespace CadastrosFiap.API.V1.Controllers
                 return CustomResponse(ModelState);
 
             var aluno = _mapper.Map<Aluno>(alunoViewModel);
-            await _alunoRepository.Atualizar(_mapper.Map<Aluno>(alunoAtualizacao));
+            await _alunoService.Atualizar(_mapper.Map<Aluno>(alunoAtualizacao));
 
             return CustomResponse(alunoViewModel);
 
@@ -82,12 +83,12 @@ namespace CadastrosFiap.API.V1.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<AlunoViewModel>> Excluir(int id)
         {
-            var alunoViewModel = _mapper.Map<AlunoViewModel>(await _alunoRepository.ObterPorId(id)); //captura a informção do banco e faz a atualização
+            var alunoViewModel = _mapper.Map<AlunoViewModel>(await _alunoRepository.ObterPorId(id));
 
             if (alunoViewModel == null)
                 return NotFound();
 
-            await _alunoRepository.Remover(id);
+            await _alunoService.Remover(id);
 
             return CustomResponse();
         }

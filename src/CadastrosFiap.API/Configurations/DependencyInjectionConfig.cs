@@ -1,5 +1,6 @@
 ﻿using CadastrosFiap.Business.Interfaces;
 using CadastrosFiap.Business.Notificacoes;
+using CadastrosFiap.Business.Services;
 using CadastrosFiap.Data.Context;
 using CadastrosFiap.Data.Repository;
 using Microsoft.Extensions.Options;
@@ -16,6 +17,9 @@ namespace CadastrosFiap.API.Configurations
             services.AddScoped<IAlunoRepository, AlunoRepository>();
             services.AddScoped<ITurmaRepository, TurmaRepository>();
             services.AddScoped<IAlunoTurmaRepository, AlunoTurmaRepository>();
+            services.AddScoped<IAlunoService, AlunoService>();
+            services.AddScoped<ITurmaService, TurmaService>();
+            services.AddScoped<IAlunoTurmaService, AlunoTurmaService>();
 
             services.AddScoped<INotificador, Notificador>();
 

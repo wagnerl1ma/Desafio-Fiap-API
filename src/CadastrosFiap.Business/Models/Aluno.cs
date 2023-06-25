@@ -12,7 +12,7 @@ namespace CadastrosFiap.Business.Models
 
         [NotMapped]
         [JsonIgnore]
-        public bool? SenhaIsValid { get; set; } = null;
+        public bool? SenhaIsValid { get; set; }
 
         //todo: criar método para gerar senha forte para usar na AlunoValidation
 
@@ -20,13 +20,17 @@ namespace CadastrosFiap.Business.Models
         // user.PasswordHash = PasswordHasher.Hash(password); // criptografando a senha para salvar no banco em Hash
 
 
-        public bool ValidarSenha()
+        public bool? ValidarSenha()
         {
             string senha = Senha;
 
             if (senha.Length != 8)
-                return false;
+            {
+                SenhaIsValid = null;
+                return null;
+            }
                 
+             //valida se tem pelo menos 1 caractere especial   
             if(Regex.IsMatch(senha, "[^a-zA-Z0-9]"))
             {
                 SenhaIsValid = true;
@@ -34,7 +38,8 @@ namespace CadastrosFiap.Business.Models
             }
             else
             {
-                return false;
+                SenhaIsValid = null;
+                return null;
             }
         }
     }

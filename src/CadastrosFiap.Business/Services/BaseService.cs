@@ -1,5 +1,4 @@
 ﻿using CadastrosFiap.Business.Interfaces;
-using CadastrosFiap.Business.Models;
 using CadastrosFiap.Business.Notificacoes;
 using FluentValidation;
 using FluentValidation.Results;
@@ -28,7 +27,7 @@ namespace CadastrosFiap.Business.Services
             _notificador.Handle(new Notificacao(mensagem));
         }
 
-        protected bool ExecutarValidacao<TV, TE>(TV validacao, TE entidade) where TV : AbstractValidator<TE> where TE : Entity
+        protected bool ExecutarValidacao<TV, TE>(TV validacao, TE entidade) where TV : AbstractValidator<TE> where TE : class
         {
             var validator = validacao.Validate(entidade);
 
