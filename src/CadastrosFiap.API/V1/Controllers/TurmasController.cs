@@ -25,6 +25,9 @@ namespace CadastrosFiap.API.V1.Controllers
             _turmaService = turmaService;
         }
 
+        /// <summary>
+        /// Obter todas as Turmas
+        /// </summary>
         [HttpGet]
         public async Task<IEnumerable<TurmaViewModel>> ObterTurmas()
         {
@@ -32,6 +35,9 @@ namespace CadastrosFiap.API.V1.Controllers
             return turmas;
         }
 
+        /// <summary>
+        /// Obter uma Turma por Id
+        /// </summary>
         [HttpGet("{id:int}")]
         public async Task<ActionResult<TurmaViewModel>> ObterPorId(int id)
         {
@@ -43,6 +49,9 @@ namespace CadastrosFiap.API.V1.Controllers
             return turma;
         }
 
+        /// <summary>
+        /// Adicionar uma Turma
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<TurmaViewModel>> Adicionar(TurmaViewModel turmaViewModel)
         {
@@ -62,6 +71,9 @@ namespace CadastrosFiap.API.V1.Controllers
             return CustomResponse(turmaViewModel);
         }
 
+        /// <summary>
+        /// Atualizar uma Turma
+        /// </summary>
         [HttpPut("{id:int}")]
         public async Task<ActionResult<TurmaViewModel>> Atualizar(int id, TurmaViewModel turmaViewModel)
         {
@@ -87,6 +99,9 @@ namespace CadastrosFiap.API.V1.Controllers
 
         }
 
+        /// <summary>
+        /// Remover uma Turma
+        /// </summary>
         //[ClaimsAuthorize("Admin", "Excluir")]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<TurmaViewModel>> Excluir(int id)

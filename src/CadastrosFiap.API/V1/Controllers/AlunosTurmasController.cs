@@ -28,6 +28,9 @@ namespace CadastrosFiap.API.V1.Controllers
             _turmaRepository = turmaRepository;
         }
 
+        /// <summary>
+        /// Obter todos os Alunos com sua Turma
+        /// </summary>
         [HttpGet]
         public async Task<IEnumerable<AlunoTurmaViewModel>> ObterAlunosTurmas()
         {
@@ -35,6 +38,9 @@ namespace CadastrosFiap.API.V1.Controllers
             return alunosTurmas;
         }
 
+        /// <summary>
+        /// Obter Aluno e a sua Turma por Id do Aluno
+        /// </summary>
         [HttpGet("{id:int}")]
         public async Task<ActionResult<AlunoTurmaViewModel>> ObterPorId(int id)
         {
@@ -46,6 +52,10 @@ namespace CadastrosFiap.API.V1.Controllers
             return alunoTurma;
         }
 
+
+        /// <summary>
+        /// Adicionar um Aluno com uma Turma
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<AlunoTurmaViewModel>> Adicionar(AlunoTurmaCreateUpdateViewModel alunoCreateTurmaViewModel)
         {
@@ -84,6 +94,9 @@ namespace CadastrosFiap.API.V1.Controllers
             return CustomResponse(alunoCreateTurmaViewModel);
         }
 
+        /// <summary>
+        /// Atualizar um Aluno com uma Turma
+        /// </summary>
         [HttpPut("{id:int}")]
         public async Task<ActionResult<AlunoTurmaViewModel>> Atualizar(int id, AlunoTurmaCreateUpdateViewModel alunoCreateUpdTurmaViewModel)
         {
@@ -131,9 +144,11 @@ namespace CadastrosFiap.API.V1.Controllers
             _alunoTurmaService.AtualizarDapper(_mapper.Map<AlunoTurma>(alunoTurmaAtualizacao));
 
             return CustomResponse(alunoCreateUpdTurmaViewModel);
-
         }
 
+        /// <summary>
+        /// Remover um Aluno com sua Turma
+        /// </summary>
         //[ClaimsAuthorize("Alunos", "Excluir")]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<AlunoTurmaViewModel>> Excluir(int id)

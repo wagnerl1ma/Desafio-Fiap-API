@@ -24,6 +24,10 @@ namespace CadastrosFiap.API.V1.Controllers
             _alunoService = alunoService;
         }
 
+
+        /// <summary>
+        /// Obter todos os Alunos
+        /// </summary>
         [HttpGet]
         public async Task<IEnumerable<AlunoViewModel>> ObterAlunos()
         {
@@ -31,6 +35,9 @@ namespace CadastrosFiap.API.V1.Controllers
             return alunos;
         }
 
+        /// <summary>
+        /// Obter Aluno por Id
+        /// </summary>
         [HttpGet("{id:int}")]
         public async Task<ActionResult<AlunoViewModel>> ObterPorId(int id)
         {
@@ -42,6 +49,9 @@ namespace CadastrosFiap.API.V1.Controllers
             return aluno;
         }
 
+        /// <summary>
+        /// Adicionar um novo Aluno
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<AlunoViewModel>> Adicionar(AlunoViewModel alunoViewModel)
         {
@@ -54,6 +64,9 @@ namespace CadastrosFiap.API.V1.Controllers
             return CustomResponse(alunoViewModel);
         }
 
+        /// <summary>
+        /// Atualizar um Aluno
+        /// </summary>
         [HttpPut("{id:int}")]
         public async Task<ActionResult<AlunoViewModel>> Atualizar(int id, AlunoViewModel alunoViewModel)
         {
@@ -84,6 +97,9 @@ namespace CadastrosFiap.API.V1.Controllers
 
         }
 
+        /// <summary>
+        /// Excluir um Aluno
+        /// </summary>
         //[ClaimsAuthorize("Alunos", "Excluir")]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<AlunoViewModel>> Excluir(int id)
