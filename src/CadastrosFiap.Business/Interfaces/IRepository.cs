@@ -16,7 +16,7 @@ namespace CadastrosFiap.Business.Interfaces
 
         Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate);  //busca por qualquer parametro atraves de expressões lambda
 
-        Task<int> SaveChanges(); 
+        Task<int> SaveChanges();
 
     }
 }

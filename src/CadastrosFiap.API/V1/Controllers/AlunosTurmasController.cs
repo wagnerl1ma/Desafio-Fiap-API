@@ -40,7 +40,7 @@ namespace CadastrosFiap.API.V1.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<AlunoTurmaViewModel>> ObterPorId(int id)
         {
-            var alunoTurma = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterPorId(id));
+            var alunoTurma = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterIdAlunoTurma(id));
 
             if (alunoTurma == null)
                 return NotFound(); //404
@@ -114,7 +114,7 @@ namespace CadastrosFiap.API.V1.Controllers
             alunoTurmaMapper.TurmaId = alunoCreateUpdTurmaViewModel.TurmaId;
 
             var alunoTurma = _mapper.Map<AlunoTurma>(alunoTurmaMapper);
-            await _alunoTurmaService.Atualizar(_mapper.Map<AlunoTurma>(alunoTurmaAtualizacao));
+            _alunoTurmaService.AtualizarDapper(_mapper.Map<AlunoTurma>(alunoTurmaAtualizacao));
 
             return CustomResponse(alunoCreateUpdTurmaViewModel);
 
@@ -129,7 +129,8 @@ namespace CadastrosFiap.API.V1.Controllers
             if (AlunoTurmaViewModel == null)
                 return NotFound();
 
-            await _alunoTurmaService.Remover(id);
+            //await _alunoTurmaService.Remover(id);
+            _alunoTurmaService.DeleteDapper(id);
 
             return CustomResponse();
         }

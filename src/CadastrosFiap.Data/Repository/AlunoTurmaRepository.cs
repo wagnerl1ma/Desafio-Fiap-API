@@ -1,9 +1,12 @@
 ﻿using CadastrosFiap.Business.Interfaces;
 using CadastrosFiap.Business.Models;
 using CadastrosFiap.Data.Context;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,5 +33,52 @@ namespace CadastrosFiap.Data.Repository
             return await Db.AlunosTurmas.Where(x => x.AlunoId == id).FirstOrDefaultAsync();
         }
 
+        public int DeleteDapper(int id)
+        {
+            var connectionString = Db.Database.GetConnectionString();
+            var count = 0;
+            using (var conect = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conect.Open();
+                    var query = "DELETE FROM TB_ALUNOS_TURMAS WHERE AlunoId =" + id;
+                    count = conect.Execute(query);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conect.Close();
+                }
+                return count;
+            }
+        }
+
+        public int AtualizarDapper(AlunoTurma alunoTurma)
+        {
+            var connectionString = Db.Database.GetConnectionString();
+            var count = 0;
+            using (var con = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    con.Open();
+                    var query = "UPDATE TB_ALUNOS_TURMAS SET TurmaId = @TurmaId, AlunoId = @AlunoId WHERE AlunoId = " + alunoTurma.AlunoId;
+                    count = con.Execute(query, alunoTurma);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    con.Close();
+                }
+                return count;
+            }
+        }
     }
 }

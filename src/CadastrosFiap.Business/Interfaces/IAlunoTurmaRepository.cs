@@ -11,5 +11,7 @@ namespace CadastrosFiap.Business.Interfaces
     {
         Task<bool> ExisteIdAlunoTurma(int id);
         Task<AlunoTurma> ObterIdAlunoTurma(int id);
+        int DeleteDapper(int id);
+        int AtualizarDapper(AlunoTurma alunoTurma);
     }
 }

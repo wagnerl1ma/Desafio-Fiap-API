@@ -1,6 +1,8 @@
 ﻿using CadastrosFiap.Business.Interfaces;
 using CadastrosFiap.Business.Models;
 using CadastrosFiap.Data.Context;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -60,6 +62,8 @@ namespace CadastrosFiap.Data.Repository
                 await SaveChanges();
             }
         }
+
+        
 
         public async Task<int> SaveChanges()
         {

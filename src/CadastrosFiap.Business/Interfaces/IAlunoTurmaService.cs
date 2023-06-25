@@ -12,5 +12,7 @@ namespace CadastrosFiap.Business.Interfaces
         Task<bool> Adicionar(AlunoTurma aluno);
         Task<bool> Atualizar(AlunoTurma aluno);
         Task Remover(int id);
+        public bool DeleteDapper(int id);
+        bool AtualizarDapper(AlunoTurma alunoTurma);
     }
 }

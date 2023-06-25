@@ -36,5 +36,24 @@ namespace CadastrosFiap.Business.Services
         {
             await _alunoTurmaRepository.Remover(id);
         }
+
+        public bool DeleteDapper(int id)
+        {
+            if (_alunoTurmaRepository.DeleteDapper(id) == 1)
+                return true;
+
+            return false;
+        }
+
+        public bool AtualizarDapper(AlunoTurma alunoTurma)
+        {
+            if (!ExecutarValidacao(new AlunoTurmaValidation(), alunoTurma))
+                return false;
+
+            if (_alunoTurmaRepository.AtualizarDapper(alunoTurma) == 1)
+                return true;
+
+            return false;
+        }
     }
 }
