@@ -49,6 +49,13 @@ namespace CadastrosFiap.API.V1.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
+            bool nomeTurmaExiste = await _turmaRepository.ExisteNomeTurma(turmaViewModel.NomeTurma);
+            if (nomeTurmaExiste)
+            {
+                NotificarErro("Este nome de Turma já existe, por favor inserir outro nome!");
+                return CustomResponse(turmaViewModel);
+            }
+
             var turma = _mapper.Map<Turma>(turmaViewModel);
             await _turmaService.Adicionar(turma);
 

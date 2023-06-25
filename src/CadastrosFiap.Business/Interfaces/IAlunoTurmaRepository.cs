@@ -9,5 +9,7 @@ namespace CadastrosFiap.Business.Interfaces
 {
     public interface IAlunoTurmaRepository : IRepository<AlunoTurma>
     {
+        Task<bool> ExisteIdAlunoTurma(int id);
+        Task<AlunoTurma> ObterIdAlunoTurma(int id);
     }
 }

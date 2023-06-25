@@ -65,7 +65,7 @@ namespace CadastrosFiap.API.V1.Controllers
 
             var alunoAtualizacao = _mapper.Map<AlunoViewModel>(await _alunoRepository.ObterPorId(id)); //captura a informção do banco e faz a atualização
 
-            alunoViewModel.Nome = alunoAtualizacao.Nome;
+            alunoAtualizacao.Nome = alunoViewModel.Nome;
             alunoAtualizacao.Usuario = alunoViewModel.Usuario;
             alunoAtualizacao.Senha = alunoViewModel.Senha;
 

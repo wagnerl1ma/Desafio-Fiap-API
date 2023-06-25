@@ -15,14 +15,19 @@ namespace CadastrosFiap.API.V1.Controllers
     public class AlunosTurmasController : MainController
     {
         private readonly IAlunoTurmaRepository _alunoTurmaRepository;
+        private readonly IAlunoRepository _alunoTurmasRepository;
+        private readonly ITurmaRepository _turmaRepository;
         private readonly IAlunoTurmaService _alunoTurmaService;
         private readonly IMapper _mapper;
 
-        public AlunosTurmasController(INotificador notificador, IAlunoTurmaRepository alunoTurmaRepository, IMapper mapper, IAlunoTurmaService alunoTurmaService) : base(notificador)
+        public AlunosTurmasController(INotificador notificador, IAlunoTurmaRepository alunoTurmaRepository, IMapper mapper, 
+            IAlunoTurmaService alunoTurmaService, IAlunoRepository alunoTurmasRepository, ITurmaRepository turmaRepository) : base(notificador)
         {
             _alunoTurmaRepository = alunoTurmaRepository;
             _mapper = mapper;
             _alunoTurmaService = alunoTurmaService;
+            _alunoTurmasRepository = alunoTurmasRepository;
+            _turmaRepository = turmaRepository;
         }
 
         [HttpGet]
@@ -44,38 +49,74 @@ namespace CadastrosFiap.API.V1.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AlunoTurmaViewModel>> Adicionar(AlunoTurmaViewModel alunoTurmaViewModel)
+        public async Task<ActionResult<AlunoTurmaViewModel>> Adicionar(AlunoTurmaCreateUpdateViewModel alunoCreateTurmaViewModel)
         {
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            var alunoTurma = _mapper.Map<AlunoTurma>(alunoTurmaViewModel);
+            var getAluno = await _alunoTurmasRepository.ObterPorId(alunoCreateTurmaViewModel.AlunoId);
+            if (getAluno == null)
+            {
+                NotificarErro("O id do Aluno informado não existe!");
+                return CustomResponse(alunoCreateTurmaViewModel);
+            }
+
+            var getTurma = await _turmaRepository.ObterPorId(alunoCreateTurmaViewModel.TurmaId);
+            if (getTurma == null)
+            {
+                NotificarErro("O id da Turma informado não existe!");
+                return CustomResponse(alunoCreateTurmaViewModel);
+            }
+
+            var alunoTurmaMapper = new AlunoTurmaViewModel();
+            alunoTurmaMapper.AlunoId = alunoCreateTurmaViewModel.AlunoId;
+            alunoTurmaMapper.TurmaId = alunoCreateTurmaViewModel.TurmaId;
+
+            var alunoTurma = _mapper.Map<AlunoTurma>(alunoTurmaMapper);
             await _alunoTurmaService.Adicionar(alunoTurma);
 
-            return CustomResponse(alunoTurmaViewModel);
+            return CustomResponse(alunoCreateTurmaViewModel);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<AlunoTurmaViewModel>> Atualizar(int id, AlunoTurmaViewModel alunoTurmaViewModel)
+        public async Task<ActionResult<AlunoTurmaViewModel>> Atualizar(int id, AlunoTurmaCreateUpdateViewModel alunoCreateUpdTurmaViewModel)
         {
-            if (id != alunoTurmaViewModel.AlunoId)
+            if (id != alunoCreateUpdTurmaViewModel.AlunoId)
             {
                 NotificarErro("O id informado não é o mesmo que foi passado na query");
-                return CustomResponse(alunoTurmaViewModel);
+                return CustomResponse(alunoCreateUpdTurmaViewModel);
             }
 
-            var alunoTurmaAtualizacao = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterPorId(id)); //captura a informção do banco e faz a atualização
+            var getAluno = await _alunoTurmaRepository.ExisteIdAlunoTurma(alunoCreateUpdTurmaViewModel.AlunoId);
+            if (!getAluno)
+            {
+                NotificarErro("O id do Aluno informado não existe!");
+                return CustomResponse(alunoCreateUpdTurmaViewModel);
+            }
 
-            alunoTurmaViewModel.AlunoId = alunoTurmaAtualizacao.AlunoId;
-            alunoTurmaAtualizacao.TurmaId = alunoTurmaViewModel.TurmaId;
+            var getTurma = await _turmaRepository.ObterPorId(alunoCreateUpdTurmaViewModel.TurmaId);
+            if (getTurma == null)
+            {
+                NotificarErro("O id da Turma informado não existe!");
+                return CustomResponse(alunoCreateUpdTurmaViewModel);
+            }
+
+            var alunoTurmaAtualizacao = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterIdAlunoTurma(id)); //captura a informção do banco e faz a atualização
+
+            alunoTurmaAtualizacao.AlunoId = alunoCreateUpdTurmaViewModel.AlunoId;
+            alunoTurmaAtualizacao.TurmaId = alunoCreateUpdTurmaViewModel.TurmaId;
             
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            var alunoTurma = _mapper.Map<AlunoTurma>(alunoTurmaViewModel);
+            var alunoTurmaMapper = new AlunoTurmaViewModel();
+            alunoTurmaMapper.AlunoId = alunoCreateUpdTurmaViewModel.AlunoId;
+            alunoTurmaMapper.TurmaId = alunoCreateUpdTurmaViewModel.TurmaId;
+
+            var alunoTurma = _mapper.Map<AlunoTurma>(alunoTurmaMapper);
             await _alunoTurmaService.Atualizar(_mapper.Map<AlunoTurma>(alunoTurmaAtualizacao));
 
-            return CustomResponse(alunoTurmaViewModel);
+            return CustomResponse(alunoCreateUpdTurmaViewModel);
 
         }
 
@@ -83,7 +124,7 @@ namespace CadastrosFiap.API.V1.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<AlunoTurmaViewModel>> Excluir(int id)
         {
-            var AlunoTurmaViewModel = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterPorId(id));
+            var AlunoTurmaViewModel = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterIdAlunoTurma(id));
 
             if (AlunoTurmaViewModel == null)
                 return NotFound();

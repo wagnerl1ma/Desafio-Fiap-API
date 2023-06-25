@@ -9,5 +9,6 @@ namespace CadastrosFiap.Business.Interfaces
 {
     public interface ITurmaRepository : IRepository<Turma>
     {
+        Task<bool> ExisteNomeTurma(string nomeTurma);
     }
 }
