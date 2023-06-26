@@ -21,7 +21,8 @@ Repositório da Tela Web: https://github.com/wagnerl1ma/Desafio-Fiap-Front
 - SOLID (Princípio da Responsabilidade Única)
 - Design Patterns (Repository)
 
-  ```bash
+
+```bash
 # clonar repositório
 git clone https://github.com/wagnerl1ma/Desafio-Fiap-API.git
 
