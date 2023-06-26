@@ -14,5 +14,6 @@ namespace CadastrosFiap.Business.Interfaces
         Task Remover(int id);
         public bool DeleteDapper(int id);
         bool AtualizarDapper(AlunoTurma alunoTurma);
+        bool DeleteParaUpdateDapper(int idAluno, int idTurma);
     }
 }

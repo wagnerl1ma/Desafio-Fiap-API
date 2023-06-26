@@ -55,5 +55,13 @@ namespace CadastrosFiap.Business.Services
 
             return false;
         }
+
+        public bool DeleteParaUpdateDapper(int alunoId, int turmaId)
+        {
+            if (_alunoTurmaRepository.DeleteParaUpdateDapper(alunoId, turmaId) == 1)
+                return true;
+
+            return false;
+        }
     }
 }

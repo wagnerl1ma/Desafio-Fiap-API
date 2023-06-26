@@ -96,7 +96,7 @@ namespace CadastrosFiap.API.V1.Controllers
         }
 
         /// <summary>
-        /// Atualizar um Aluno com uma Turma
+        /// Atualizar Turma do Aluno
         /// </summary>
         [HttpPut("{id:int}")]
         public async Task<ActionResult<AlunoTurmaViewModel>> Atualizar(int id, AlunoTurmaCreateUpdateViewModel alunoCreateUpdTurmaViewModel)
@@ -107,8 +107,10 @@ namespace CadastrosFiap.API.V1.Controllers
                 return CustomResponse(alunoCreateUpdTurmaViewModel);
             }
 
-            var getAluno = await _alunoTurmaRepository.ExisteIdAlunoTurma(alunoCreateUpdTurmaViewModel.AlunoId);
-            if (!getAluno)
+            var alunoTurmaRota = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterAlunoTurma(id));
+
+            var alunoExiste = await _alunoTurmaRepository.ExisteIdAlunoTurma(alunoCreateUpdTurmaViewModel.AlunoId);
+            if (!alunoExiste)
             {
                 NotificarErro("O id do Aluno informado não existe!");
                 return CustomResponse(alunoCreateUpdTurmaViewModel);
@@ -121,29 +123,13 @@ namespace CadastrosFiap.API.V1.Controllers
                 return CustomResponse(alunoCreateUpdTurmaViewModel);
             }
 
-            var alunoTurmaAtualizacao = _mapper.Map<AlunoTurmaViewModel>(await _alunoTurmaRepository.ObterAlunoTurma(id)); //captura a informção do banco e faz a atualização
-
-            alunoTurmaAtualizacao.AlunoId = alunoCreateUpdTurmaViewModel.AlunoId;
-            alunoTurmaAtualizacao.TurmaId = alunoCreateUpdTurmaViewModel.TurmaId;
-            
-            if (!ModelState.IsValid)
-                return CustomResponse(ModelState);
-
-            var alunoTurmaMapper = new AlunoTurmaViewModel();
-            alunoTurmaMapper.AlunoId = alunoCreateUpdTurmaViewModel.AlunoId;
-            alunoTurmaMapper.TurmaId = alunoCreateUpdTurmaViewModel.TurmaId;
-
-            //var alunoTurma = _mapper.Map<AlunoTurma>(alunoTurmaMapper);
-
-            var alunoMesmaTurma = await _alunoTurmaRepository.AlunoMesmoTurma(_mapper.Map<AlunoTurma>(alunoTurmaAtualizacao));
-            if (alunoMesmaTurma)
+            //ajuste por conta do erro: Não é possível inserir SQL de chave duplicada, isso por conta da chave composta da tabela AlunoTurma
+            var okParaAtualizacao = _alunoTurmaService.DeleteParaUpdateDapper(alunoTurmaRota.AlunoId, alunoTurmaRota.TurmaId);
+            if (okParaAtualizacao)
             {
-                NotificarErro("O mesmo Aluno não pode estar relacionado na mesma Turma duas vezes!");
-                return CustomResponse(alunoCreateUpdTurmaViewModel);
+                await Adicionar(alunoCreateUpdTurmaViewModel);
             }
-
-            _alunoTurmaService.AtualizarDapper(_mapper.Map<AlunoTurma>(alunoTurmaAtualizacao));
-
+           
             return CustomResponse(alunoCreateUpdTurmaViewModel);
         }
 

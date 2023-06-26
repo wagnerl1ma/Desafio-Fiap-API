@@ -73,6 +73,31 @@ namespace CadastrosFiap.Data.Repository
             }
         }
 
+        public int DeleteParaUpdateDapper(int idAluno, int idTurma) // removendo por conta que nao pode atualizar chaves duplicadas
+        {
+            var connectionString = Db.Database.GetConnectionString();
+            var count = 0;
+            using (var conect = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conect.Open();
+                    //var query = "DELETE FROM TB_ALUNOS_TURMAS WHERE AlunoId =" + id ;
+                    var query = $"DELETE FROM TB_ALUNOS_TURMAS WHERE AlunoId = {idAluno} AND TurmaId = {idTurma}";
+                    count = conect.Execute(query);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conect.Close();
+                }
+                return count;
+            }
+        }
+
         public int AtualizarDapper(AlunoTurma alunoTurma)
         {
             var connectionString = Db.Database.GetConnectionString();
