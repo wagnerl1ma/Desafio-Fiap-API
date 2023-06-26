@@ -9,10 +9,12 @@
 ### Resumo sobre o que foi feito:
 - Separação do projeto em camadas
 - Isolamento das regras de negócio
+- Validações de regra negócio com FluentValidation
 - Autenticação com Json Web Token (JWT)
 - Validações de dados no back-end
 - Migrations com Entity Framework Core
 - Persistência dos dados com Entity Framework Core e Dapper
+- Mapeameamento das Entitidades com Fluent API
 - Documentação da API com Swagger
 - Versionamento da API com Swagger 
 - Injeção de dependência
@@ -20,6 +22,7 @@
 - Respostas Personalizadas
 - SOLID (Princípio da Responsabilidade Única)
 - Design Patterns (Repository)
+- Teste Unitário
 
 
 ```bash
