@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadastrosFiap.Data.Migrations
 {
     [DbContext(typeof(CadastrosFiapContext))]
-    [Migration("20230624220022_Inicial")]
-    partial class Inicial
+    [Migration("20230626175207_CreateDataBase")]
+    partial class CreateDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
