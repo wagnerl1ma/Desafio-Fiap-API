@@ -1,5 +1,4 @@
-﻿using SecureIdentity.Password;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
@@ -9,16 +8,11 @@ namespace CadastrosFiap.Business.Models
     {
         public string Nome { get; set; }
         public string Usuario { get; set; }
-        public string Senha { get; set; } //todo: salvar como char no banco
+        public string Senha { get; set; }
 
         [NotMapped]
         [JsonIgnore]
         public bool? SenhaIsValid { get; set; }
-
-        //todo: criar método para gerar senha forte para usar na AlunoValidation
-
-        // var password = PasswordGenerator.Generate(25, true, false); //gerando senha forte
-        // user.PasswordHash = PasswordHasher.Hash(password); // criptografando a senha para salvar no banco em Hash
 
 
         public bool? ValidarSenha()

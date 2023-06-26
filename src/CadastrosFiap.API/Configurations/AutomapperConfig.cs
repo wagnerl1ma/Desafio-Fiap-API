@@ -11,9 +11,6 @@ namespace CadastrosFiap.API.Configurations
             CreateMap<Aluno, AlunoViewModel>().ReverseMap();
             CreateMap<Turma, TurmaViewModel>().ReverseMap();
             CreateMap<AlunoTurma, AlunoTurmaViewModel>().ReverseMap();
-            //CreateMap<AlunoTurma, AlunoTurmaViewModel>().ForMember(a => a.Aluno, x => x.Ignore());
-            //CreateMap<AlunoTurmaViewModel, AlunoTurma>().ForMember(a => a.Aluno, x => x.Ignore());
-
         }
     }
 }

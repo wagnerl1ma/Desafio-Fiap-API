@@ -13,8 +13,6 @@ namespace CadastrosFiap.API.Configurations
         {
             services.AddSwaggerGen(c =>
             {
-                //c.OperationFilter<SwaggerDefaultValues>();
-
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",

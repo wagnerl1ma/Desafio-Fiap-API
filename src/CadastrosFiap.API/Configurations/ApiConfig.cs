@@ -36,16 +36,12 @@ namespace CadastrosFiap.API.Configurations
         {
             if (env.IsDevelopment())
             {
-                //app.UseCors("Development");
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                //app.UseCors("Development"); // Usar apenas nas demos => Configuração Ideal: Production
                 app.UseHsts();
             }
-
-            //app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 

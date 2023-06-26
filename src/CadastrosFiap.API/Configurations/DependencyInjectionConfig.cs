@@ -3,9 +3,6 @@ using CadastrosFiap.Business.Notificacoes;
 using CadastrosFiap.Business.Services;
 using CadastrosFiap.Data.Context;
 using CadastrosFiap.Data.Repository;
-using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Collections.Generic;
 
 namespace CadastrosFiap.API.Configurations
 {
@@ -14,22 +11,16 @@ namespace CadastrosFiap.API.Configurations
         public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
             services.AddScoped<CadastrosFiapContext>();
+
             services.AddScoped<IAlunoRepository, AlunoRepository>();
             services.AddScoped<ITurmaRepository, TurmaRepository>();
             services.AddScoped<IAlunoTurmaRepository, AlunoTurmaRepository>();
+
             services.AddScoped<IAlunoService, AlunoService>();
             services.AddScoped<ITurmaService, TurmaService>();
             services.AddScoped<IAlunoTurmaService, AlunoTurmaService>();
 
             services.AddScoped<INotificador, Notificador>();
-
-            //services.AddScoped<IFilmeService, FilmeService>();
-            //services.AddScoped<IGeneroService, GeneroService>();
-
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddScoped<IUser, AspNetUser>();
-
-            //services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
             return services;
         }
