@@ -84,7 +84,7 @@ namespace CadastrosFiap.API.V1.Controllers
                 return CustomResponse(turmaViewModel);
             }
 
-            var turmaAtualizacao = _mapper.Map<TurmaViewModel>(await _turmaRepository.ObterPorId(id)); //captura a informção do banco e faz a atualização
+            var turmaAtualizacao = _mapper.Map<TurmaViewModel>(await _turmaRepository.ObterPorId(id)); 
 
             turmaAtualizacao.IdCurso = turmaViewModel.IdCurso;
             turmaAtualizacao.NomeTurma = turmaViewModel.NomeTurma;

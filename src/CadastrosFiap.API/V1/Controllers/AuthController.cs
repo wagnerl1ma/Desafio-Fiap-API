@@ -20,6 +20,9 @@ namespace CadastrosFiap.API.V1.Controllers
             _appSettings = appSettings.Value;
         }
 
+        /// <summary>
+        /// Obter token JWT para autenticaçao
+        /// </summary>
         [HttpGet]
         public string GetJwt()
         {
